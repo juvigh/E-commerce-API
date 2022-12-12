@@ -1,8 +1,8 @@
 import Express from "express";
+import cors from "cors"
 const app = Express();
 
 import openDb from "./connection/configDB.js";
-
 openDb.then(() => {
   console.log("conectado ao banco");
 });
@@ -10,6 +10,9 @@ openDb.then(() => {
 import { CreateTableProduct, CreateTableUser, enableForeignKey } from "./connection/createDB.js";
 CreateTableProduct(openDb), CreateTableUser(openDb), enableForeignKey(openDb)
 
+
+import middlePattern from "./middlewares/config.js";
+middlePattern(app, Express, cors)
 
 
 export default app;
