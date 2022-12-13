@@ -14,5 +14,8 @@ CreateTableProduct(openDb), CreateTableUser(openDb), enableForeignKey(openDb)
 import middlePattern from "./middlewares/config.js";
 middlePattern(app, Express, cors)
 
+import userRoute from "./routers/user.routes.js";
+app.use(userRoute)
+
 
 export default app;
