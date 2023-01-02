@@ -91,7 +91,7 @@ const userController = (app, db) => {
   });
 
   // login
-  app.get("/login", async (req, res) => {
+  app.post("/login", async (req, res) => {
     try {
       const authUser = new UserAuth(req.body.email, req.body.password);
       const getUserAuth = await userDAO.LoginUser(authUser.email);
