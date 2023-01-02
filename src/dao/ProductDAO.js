@@ -30,12 +30,13 @@ class ProductDAO {
   }
 
   InsertNewProduct(newProduct) {
-    const querySQL = `INSERT INTO products(id, title, description, value) VALUES (?,?,?,?)`;
+    const querySQL = `INSERT INTO products(id, img, title, description, value) VALUES (?,?,?,?,?)`;
     return new Promise((resolve, reject) => {
       this.db.run(
         querySQL,
         [
           newProduct.id,
+          newProduct.img,
           newProduct.title,
           newProduct.description,
           newProduct.value,
@@ -52,11 +53,17 @@ class ProductDAO {
   }
 
   ModifyProduct(product) {
-    const querySQL = `UPDATE products SET title=?, description=?, value=? WHERE id=?`;
+    const querySQL = `UPDATE products SET img =?, title=?, description=?, value=? WHERE id=?`;
     return new Promise((resolve, reject) => {
       this.db.run(
         querySQL,
-        [product.title, product.description, product.value, product.id],
+        [
+          product.img,
+          product.title,
+          product.description,
+          product.value,
+          product.id,
+        ],
         (erro) => {
           if (!erro) {
             resolve(product);

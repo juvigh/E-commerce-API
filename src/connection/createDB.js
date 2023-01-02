@@ -23,6 +23,7 @@ export function CreateTableUser(db) {
   const PRODUCTS_SCHEMA = `
     CREATE TABLE products (
       id VARCHAR(50) PRIMARY KEY,
+      img VARCHAR(100),
       title VARCHAR(80),
       description VARCHAR(100),
       value FLOAT

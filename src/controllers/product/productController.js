@@ -31,6 +31,7 @@ const productController = (app, db) => {
   app.post("/product", async (req, res) => {
     try {
       const newProduct = new Product(
+        req.body.img,
         req.body.title,
         req.body.description,
         req.body.value
@@ -42,6 +43,7 @@ const productController = (app, db) => {
         newProduct: createProduct,
       });
     } catch (error) {
+      console.log(error)
       res.status(400).json({ msg: "Unable to complete the action" });
     }
   });
@@ -53,6 +55,7 @@ const productController = (app, db) => {
       const getProduct = await productDAO.GetAnProduct(id);
       if (getProduct) {
         const updateProduct = new Product(
+          req.body.img,
           req.body.title,
           req.body.description,
           req.body.value
@@ -60,6 +63,7 @@ const productController = (app, db) => {
 
         const product = [
           {
+            img: updateProduct.img || getProduct[0].img,
             title: updateProduct.title || getProduct[0].title,
             description: updateProduct.description || getProduct[0].description,
             value: updateProduct.value || getProduct[0].value,
