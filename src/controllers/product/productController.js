@@ -10,7 +10,7 @@ const productController = (app, db) => {
       const products = await productDAO.GetAllProducts();
       res
         .status(200)
-        .json({ msg: "Here are all products", products: products });
+        .json({ products: products });
     } catch (error) {
       res.status(400).json({ msg: "Unable to complete the action" });
     }
@@ -21,7 +21,7 @@ const productController = (app, db) => {
     const id = req.params.id;
     try {
       const product = await productDAO.GetAnProduct(id);
-      res.status(200).json({ msg: "Here is the product", product: product });
+      res.status(200).json({ product: product });
     } catch (error) {
       res.status(400).json({ msg: "Unable to complete the action" });
     }
@@ -74,11 +74,11 @@ const productController = (app, db) => {
         const changeProduct = await productDAO.ModifyProduct(product[0]);
 
         res.status(200).json({
-          msg: "Product has been modified",
+          msg: "O produto foi alterado com sucesso",
           updateProduct: changeProduct,
         });
       } else {
-        res.status(404).json({ msg: "Product not found" });
+        res.status(404).json({ msg: "Produto não encontrado" });
       }
     } catch (error) {
       res.status(400).json({ msg: "Unable to complete the action" });
@@ -93,9 +93,9 @@ const productController = (app, db) => {
       const deleteProduct = await productDAO.DeleteProduct(id);
       res
         .status(200)
-        .json({ msg: `${getProduct[0].title} deleted successfully` });
+        .json({ msg: `${getProduct[0].title} foi deletado com sucesso` });
     } catch (error) {
-      res.status(400).json({ msg: "Unable to complete the action" });
+      res.status(400).json({ error: "Unable to complete the action" });
     }
   });
 };
