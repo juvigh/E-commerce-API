@@ -101,7 +101,14 @@ const userController = (app, db) => {
   app.post("/login", async (req, res) => {
     try {
       const authUser = new UserAuth(req.body.email, req.body.password);
-      const getUserAuth = await userDAO.LoginUser(authUser.email);
+      const getUserAuth = await userDAO.GetAnUserByEmail(authUser.email);
+
+      if (!authUser.email || !authUser.password) {
+        return res.status(400).json({ msg: "O campo não pode estar vazio" });
+      }
+      if (!getUserAuth[0]) {
+        return res.status(400).json({ msg: "Este email não existe" });
+      }
 
       if (getUserAuth[0].password !== authUser.password) {
         return res.status(400).json({ msg: "Email ou senha incorreto" });
