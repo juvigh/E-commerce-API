@@ -29,6 +29,19 @@ export class UserDAO {
     });
   }
 
+  GetAnUserByEmail(email) {
+    const querySQL = `SELECT * FROM users WHERE email=?`;
+    return new Promise((resolve, reject) => {
+      this.db.all(querySQL, email, (erro, rows) => {
+        if (!erro) {
+          resolve(rows);
+        } else {
+          reject(erro);
+        }
+      });
+    });
+  }
+
   InsertNewUser(newUser) {
     const querySQL = `INSERT INTO users(id, name, email, password) VALUES (?,?,?,?)`;
     return new Promise((resolve, reject) => {
@@ -67,19 +80,6 @@ export class UserDAO {
     const querySQL = `DELETE FROM users WHERE id=?`;
     return new Promise((resolve, reject) => {
       this.db.run(querySQL, id, (erro, rows) => {
-        if (!erro) {
-          resolve(rows);
-        } else {
-          reject(erro);
-        }
-      });
-    });
-  }
-
-  LoginUser(email) {
-    const querySQL = `SELECT * FROM users WHERE email=?`;
-    return new Promise((resolve, reject) => {
-      this.db.all(querySQL, email, (erro, rows) => {
         if (!erro) {
           resolve(rows);
         } else {
