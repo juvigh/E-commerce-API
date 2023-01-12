@@ -10,7 +10,7 @@ const cartController = (app, db) => {
       const itemsOnCart = await cartDAO.GetAllItensOnCart();
       res
         .status(200)
-        .json({ msg: "Here are all items on cart", items: itemsOnCart });
+        .json({ items: itemsOnCart });
     } catch (error) {
       res.status(400).json({ msg: "Unable to complete the action" });
     }
@@ -21,7 +21,7 @@ const cartController = (app, db) => {
     const id = req.params.id;
     try {
       const itemOnCart = await cartDAO.GetAnItemOnCart(id);
-      res.status(200).json({ msg: "Here is the item", item: itemOnCart });
+      res.status(200).json({ item: itemOnCart });
     } catch (error) {
       res.status(400).json({ msg: "Unable to complete the action" });
     }
@@ -38,7 +38,6 @@ const cartController = (app, db) => {
       if (newItem.status === "purchased" || newItem.status === "saved") {
         const createNewItem = await cartDAO.InsertNewItemOnCart(newItem);
         res.status(200).json({
-          msg: "New item entered successfully",
           newItem: createNewItem,
         });
       } else {
@@ -75,7 +74,6 @@ const cartController = (app, db) => {
 
         const changeItem = await cartDAO.ModifyItemOnCart(itemOnCart);
         res.status(200).json({
-          msg: "Item on has been modified",
           updateCart: changeItem,
         });
       } else {
@@ -91,7 +89,7 @@ const cartController = (app, db) => {
     const id = req.params.id;
     try {
       const deleteItemOnCart = await cartDAO.DeleteItemOnCart(id);
-      res.status(200).json({ msg: "Item deleted successfully" });
+      res.status(200).json({ msg: "Deletado do carrinho" });
     } catch (error) {
       res.status(400).json({ msg: "Unable to complete the action" });
     }
