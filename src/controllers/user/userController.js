@@ -8,7 +8,7 @@ const userController = (app, db) => {
   app.get("/user", async (req, res) => {
     try {
       const users = await userDAO.GetAllUsers();
-      res.status(200).json({ msg: "Here are all users", users: users });
+      res.status(200).json({ users: users });
     } catch (error) {
       res.status(400).json({ error: "Unable to complete the action" });
     }
@@ -19,9 +19,7 @@ const userController = (app, db) => {
     const id = req.params.id;
     try {
       const user = await userDAO.GetAnUser(id);
-      res
-        .status(200)
-        .json({ msg: `Here is the user ${user[0].name}`, user: user });
+      res.status(200).json({ user: user });
     } catch (error) {
       res.status(400).json({ error: "Unable to complete the action" });
     }
@@ -41,7 +39,7 @@ const userController = (app, db) => {
         .status(200)
         .json({ msg: "New user entered successfully", newUser: createUser });
     } catch (error) {
-      res.status(400).json({ error: "Unable to complete the action" });
+      res.status(400).json({ msg: "Unable to complete the action" });
     }
   });
 
@@ -69,9 +67,9 @@ const userController = (app, db) => {
         const changeUser = await userDAO.ModifyUser(user[0]);
         res
           .status(200)
-          .json({ msg: "User has been modified", updateUser: changeUser });
+          .json({ msg: "Usuario modficado com sucesso", updateUser: changeUser });
       } else {
-        res.status(404).json({ msg: "Not found user" });
+        res.status(404).json({ msg: "Usuario não encontrado" });
       }
     } catch (error) {
       res.status(400).json({ error: "Unable to complete the action" });
@@ -84,7 +82,7 @@ const userController = (app, db) => {
     try {
       const getUser = await userDAO.GetAnUser(id);
       const deleteUser = await userDAO.DeleteUser(id);
-      res.status(200).json({ msg: `${getUser[0].name} deleted successfully` });
+      res.status(200).json({ msg: `${getUser[0].name} foi deletado com sucesso` });
     } catch (error) {
       res.status(400).json({ error: "Unable to complete the action" });
     }
@@ -97,14 +95,14 @@ const userController = (app, db) => {
       const getUserAuth = await userDAO.LoginUser(authUser.email);
 
       if (getUserAuth[0].password !== authUser.password) {
-        res.status(400).send("Email or password are incorrect");
+        return res.status(400).json({ msg: "Email ou senha incorreto" });
       } else {
-        res
+        return res
           .status(200)
-          .json({ msg: "Authenticated user", userAuth: getUserAuth[0] });
+          .json({ msg: "Usuario autenticado", userAuth: getUserAuth[0] });
       }
     } catch (error) {
-      res.status(400).json({ error: "Unable to complete the action" });
+      return res.status(400).json({ msg: "Unable to complete the action" });
     }
   });
 };
