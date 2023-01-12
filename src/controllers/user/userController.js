@@ -34,10 +34,19 @@ const userController = (app, db) => {
         req.body.password
       );
 
-      const createUser = await userDAO.InsertNewUser(newUser);
-      res
-        .status(200)
-        .json({ msg: "New user entered successfully", newUser: createUser });
+      if (!newUser.name || !newUser.email || !newUser.password) {
+        return res.status(402).json({ msg: "O campo não pode estar vazio" });
+      }
+
+      const user = await userDAO.GetAnUserByEmail(newUser.email);
+      if (!user[0]) {
+        const createUser = await userDAO.InsertNewUser(newUser);
+        return res
+          .status(200)
+          .json({ msg: "Usuario registrado com sucesso", newUser: createUser });
+      } else {
+        return res.status(400).json({ msg: "Este email já está sendo usado" });
+      }
     } catch (error) {
       res.status(400).json({ msg: "Unable to complete the action" });
     }
