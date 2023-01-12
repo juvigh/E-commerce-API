@@ -52,7 +52,6 @@ const productController = (app, db) => {
         });
       }
     } catch (error) {
-      console.log(error)
       res.status(400).json({ msg: "Unable to complete the action" });
     }
   });
