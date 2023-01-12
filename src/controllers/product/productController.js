@@ -37,11 +37,20 @@ const productController = (app, db) => {
         req.body.value
       );
 
-      const createProduct = await productDAO.InsertNewProduct(newProduct);
-      res.status(200).json({
-        msg: "New product entered successfully",
-        newProduct: createProduct,
-      });
+      if (
+        !newProduct.img ||
+        !newProduct.title ||
+        !newProduct.description ||
+        !newProduct.value
+      ) {
+        return res.status(402).json({ msg: "O campo não pode estar vazio" });
+      } else {
+        const createProduct = await productDAO.InsertNewProduct(newProduct);
+        res.status(200).json({
+          msg: "Um novo produto criado com sucesso",
+          newProduct: createProduct,
+        });
+      }
     } catch (error) {
       console.log(error)
       res.status(400).json({ msg: "Unable to complete the action" });
