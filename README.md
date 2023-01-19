@@ -1,4 +1,4 @@
-# <div align="center">E-commerce-API - Gaia Orgânicos</div>
+# <div align="center"><p>E-commerce-API - Gaia Orgânicos</p></div>
 <p>🚀 Projeto criado durante os 2 meses de intensivo do Programadores do Amanhã.</p>
 <p>💡 Esta api foi desenvolvida exclusivamente para ser consumida no e-commerce construída no front-end.</p>
 
