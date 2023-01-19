@@ -40,3 +40,7 @@ $ cd E-commerce-API
 $ npm install
 $ npm start
 ```
+<br> 
+
+## Status da API
+<p> Online ✅ - via <a href="https://render.com"> render.com </a> </p>
